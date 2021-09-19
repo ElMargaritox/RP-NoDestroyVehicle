@@ -12,9 +12,9 @@ using Logger = Rocket.Core.Logging.Logger;
 namespace RPNoDestroyVehicle
 {
     
-    public class Class1 : RocketPlugin<Config>
+    public class RPNoDestroyVehiclePlugin : RocketPlugin<RPNoDestroyVehicleConfig>
     {
-        public Class1 Instance;
+        public RPNoDestroyVehiclePlugin Instance;
         protected override void Load()
         {
 
@@ -33,19 +33,11 @@ namespace RPNoDestroyVehicle
 
             if (Configuration.Instance.mostrarlog)
             {
-                SteamPlayer nombre = PlayerTool.getSteamPlayer(instigatorSteamID);
-                
-                switch (damageOrigin)
+                UnturnedPlayer player = UnturnedPlayer.FromCSteamID(instigatorSteamID);
+
+                if (damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee || damageOrigin == EDamageOrigin.Punch)
                 {
-                    case EDamageOrigin.Useable_Gun:
-                        Logger.Log(nombre.playerID.characterName + " Esta Intentando Romper: " + vehicle.name.ToString());
-                        break;
-                    case EDamageOrigin.Useable_Melee:
-                        Logger.Log(nombre.playerID.characterName + " Esta Intentando Romper: " + vehicle.name.ToString());
-                        break;
-                    case EDamageOrigin.Punch:
-                        Logger.Log(nombre.playerID.characterName + " Esta Intentando Romper: " + vehicle.name.ToString());
-                        break;
+                    Logger.LogWarning($"{player.CharacterName} Esta Intentando Romper: {vehicle.asset.name}");  
                 }
             }
         }

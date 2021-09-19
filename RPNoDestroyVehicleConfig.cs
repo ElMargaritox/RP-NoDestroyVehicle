@@ -7,7 +7,7 @@ using Rocket.API;
 
 namespace RPNoDestroyVehicle
 {
-    public class Config : IRocketPluginConfiguration
+    public class RPNoDestroyVehicleConfig : IRocketPluginConfiguration
     {
         public bool vidainfinita;
         public bool mostrarlog;
